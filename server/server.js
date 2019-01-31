@@ -20,13 +20,15 @@ const loadHtml = (content) => {
             <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link rel="manifest" href="/manifest.json">
-                <link rel="icon" href="/img/budget64.png">
+                <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                <link rel="icon" href="https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-57x57.png">
                 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
                 <style>
                     @keyframes rippleLoader {
                         100% {
-                           width: 400px;
-                           height: 400px;
+                           width: 325px;
+                           height: 325;
                             opacity: 0;
                           }
                     }
@@ -40,23 +42,21 @@ const loadHtml = (content) => {
                         '<div>\
                             </div>\
                                 <div style="position: relative">\
-                                    <div style="color: #fff; background-color: #0757d0; border-radius: 100%; width: 60px; height: 60px; text-align: center; margin: 45vh auto;z-index: 7;position: relative;">\
-                                        <div style="padding: 24px"/>\
-                                            <svg x="0px" y="0px" width="13px" height="13px" viewBox="0 0 401.998 401.998" style={{"enable-background" :"new 0 0 401.998 401.998", "xml:space": "preserve"}}>\
-                                                <g>\
-                                                    <g>\
-                                                        <path d="M326.62,91.076c-1.711-1.713-3.901-2.568-6.563-2.568h-48.82c-3.238-15.793-9.329-29.502-18.274-41.112h66.52   c2.669,0,4.853-0.856,6.57-2.565c1.704-1.712,2.56-3.903,2.56-6.567V9.136c0-2.666-0.855-4.853-2.56-6.567   C324.334,0.859,322.15,0,319.481,0H81.941c-2.666,0-4.853,0.859-6.567,2.568c-1.709,1.714-2.568,3.901-2.568,6.567v37.972   c0,2.474,0.904,4.615,2.712,6.423s3.949,2.712,6.423,2.712h41.399c40.159,0,65.665,10.751,76.513,32.261H81.941   c-2.666,0-4.856,0.855-6.567,2.568c-1.709,1.715-2.568,3.901-2.568,6.567v29.124c0,2.664,0.855,4.854,2.568,6.563   c1.714,1.715,3.905,2.568,6.567,2.568h121.915c-4.188,15.612-13.944,27.506-29.268,35.691   c-15.325,8.186-35.544,12.279-60.67,12.279H81.941c-2.474,0-4.615,0.905-6.423,2.712c-1.809,1.809-2.712,3.951-2.712,6.423v36.263   c0,2.478,0.855,4.571,2.568,6.282c36.543,38.828,83.939,93.165,142.182,163.025c1.715,2.286,4.093,3.426,7.139,3.426h55.672   c4.001,0,6.763-1.708,8.281-5.141c1.903-3.426,1.53-6.662-1.143-9.708c-55.572-68.143-99.258-119.153-131.045-153.032   c32.358-3.806,58.625-14.277,78.802-31.404c20.174-17.129,32.449-39.403,36.83-66.811h47.965c2.662,0,4.853-0.854,6.563-2.568   c1.715-1.709,2.573-3.899,2.573-6.563V97.646C329.193,94.977,328.335,92.79,326.62,91.076z" data-original="#000000"  data-old_color="#F7F4F4" fill="#fff"/>\
-                                                    </g>\
-                                                </g>\
-                                            </svg>\
+                                    <div style="color: #fff; background-color: #ff4501; border-radius: 100%; width: 80px; height: 80px; text-align: center; margin: 45vh auto;z-index: 7;position: relative;">\
+                                        <div style=""/>\
+                                            <svg style="width:80px" viewBox="0 0 20 20"><g><circle fill="#FF4500" cx="10" cy="10" r="10"></circle><path fill="#FFF" d="M16.67,10A1.46,1.46,0,0,0,14.2,9a7.12,7.12,0,0,0-3.85-1.23L11,4.65,13.14,5.1a1,1,0,1,0,.13-0.61L10.82,4a0.31,0.31,0,0,0-.37.24L9.71,7.71a7.14,7.14,0,0,0-3.9,1.23A1.46,1.46,0,1,0,4.2,11.33a2.87,2.87,0,0,0,0,.44c0,2.24,2.61,4.06,5.83,4.06s5.83-1.82,5.83-4.06a2.87,2.87,0,0,0,0-.44A1.46,1.46,0,0,0,16.67,10Zm-10,1a1,1,0,1,1,1,1A1,1,0,0,1,6.67,11Zm5.81,2.75a3.84,3.84,0,0,1-2.47.77,3.84,3.84,0,0,1-2.47-.77,0.27,0.27,0,0,1,.38-0.38A3.27,3.27,0,0,0,10,14a3.28,3.28,0,0,0,2.09-.61A0.27,0.27,0,1,1,12.48,13.79Zm-0.18-1.71a1,1,0,1,1,1-1A1,1,0,0,1,12.29,12.08Z"></path></g></svg>\
                                         </div>\
                                     </div>\
-                                <span style="transform: translate(-50%, -50%);position: absolute; top: 50%; left: 50%; width: 0; height: 0; background-color: #0757d0; border-radius: 50%; animation: rippleLoader 1.5s ease infinite;"></span>\
+                                <span style="transform: translate(-50%, -50%);position: absolute; top: 50%; left: 50%; width: 0; height: 0; background-color: #ff4501; border-radius: 50%; animation: rippleLoader 1.5s ease infinite;"></span>\
                             </div>\
                         </div>';
                 </script>
                 <script src = "/swRegisterer.js"></script>
                 <script src="client_bundle.js"></script>
+                <link rel="stylesheet" type="text/css" href="/styles/common.css">
+                <link rel="stylesheet" type="text/css" href="/styles/home.css">
+                <link rel="stylesheet" type="text/css" href="/styles/popup.css">
+                <link rel="stylesheet" type="text/css" href="/styles/notfound.css">
             </body>
         </html>`);
 };
