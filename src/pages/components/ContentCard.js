@@ -95,7 +95,7 @@ export default class ContentCard extends Component {
               <div className="details">
                 <i className="fas fa-igloo"></i>
                 <span>{commentSvg}</span><span className="commentsCount">{num_comments}</span>
-                <span className="commentsCount">{' Published ' + time }</span><span> by </span><span className="author">{author}</span>
+                <span className="commentsCount marginL15">{' Published ' + time }</span><span> by </span><span className="author">{author}</span>
               </div>
             </div>
             <div className="voting tc f12">

@@ -20,10 +20,10 @@ const loadHtml = (content) => {
     return (`
         <html>
             <head>
+                 <title>Modern Reddit</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link rel="manifest" href="/manifest.json">
                 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                 <link rel="icon" href="https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-57x57.png">
                 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
                 <style>
@@ -57,8 +57,6 @@ const loadHtml = (content) => {
                 <script src="client_bundle.js"></script>
                 <link rel="stylesheet" type="text/css" href="/styles/common.css">
                 <link rel="stylesheet" type="text/css" href="/styles/home.css">
-                <link rel="stylesheet" type="text/css" href="/styles/popup.css">
-                <link rel="stylesheet" type="text/css" href="/styles/notfound.css">
             </body>
         </html>`);
 };
