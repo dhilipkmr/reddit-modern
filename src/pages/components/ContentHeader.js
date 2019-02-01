@@ -4,6 +4,7 @@ export default class ContentHeader extends Component {
   constructor(props) {
     super(props);
     this.updateSearchTerm = this.updateSearchTerm.bind(this);
+    this.searchFocus = this.searchFocus.bind(this);
     this.state = {
       searchTerm: 'cats'
     }
@@ -24,12 +25,19 @@ export default class ContentHeader extends Component {
     }
   }
 
+  searchFocus() {
+    this.refs.searchElt.classList.toggle('searchFocus');
+  }
+
   render() {
     const {searchTerm = ''} = this.state;
    return (
     <div className="contentHeaderWrap col-6 col-md-12 col-sm-12">
-      <div className="search">
-        <input placeholder="search" onKeyUp={this.updateSearchTerm} />
+      <div ref="searchElt" className="search d-in-bl">
+        <input placeholder="search" onKeyUp={this.updateSearchTerm} onFocus={this.searchFocus} onBlur={this.searchFocus} />
+      </div>
+      <div className="d-in-bl sideHeading f12">
+        <span>{this.props.sideMenuSelected}</span>
       </div>
     </div>
    );

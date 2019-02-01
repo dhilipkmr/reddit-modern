@@ -4,10 +4,12 @@ import env from './config/config';
 import express from 'express';
 import bodyParser from 'body-parser';
 import App from '../src/app'
+var compression = require('compression');
 
 const app = express();
 const port = process.env.PORT;
 
+app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('build/public'));

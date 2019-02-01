@@ -14,7 +14,7 @@ export default class ImageLoader extends Component {
     const {url} = this.props;
     return (
       <div className="imagePopup" onClick={this.handleClick}>
-        <img className="img"  src={url}/>
+        <img className="img" src={url} onError={(e) => {e.target.src = '/img/404.png';}}/>
       </div>
     )
   }
