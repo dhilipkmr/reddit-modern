@@ -11,6 +11,7 @@ export default class ContentHeader extends Component {
   }
 
   componentDidMount(){ 
+    this.refs.searchElt.children[0].innerText= 'cats';
     this.props.triggerSearch('cats');
   }
   updateSearchTerm(e) {
@@ -32,14 +33,20 @@ export default class ContentHeader extends Component {
   render() {
     const {searchTerm = ''} = this.state;
    return (
-    <div className="contentHeaderWrap col-6 col-md-12 col-sm-12">
+    //  <div>
+    <div className="tl col-10 col-md-10 col-sm-12 sm-hdr">
+      <div className="d-in-bl">
+        <img className="left-menu" src="/img/menu.svg" onClick={this.props.toggleSideBar}/>
+      </div>
       <div ref="searchElt" className="search d-in-bl">
-        <input placeholder="search" onKeyUp={this.updateSearchTerm} onFocus={this.searchFocus} onBlur={this.searchFocus} />
+        <input name="search" placeholder="search" type="text" aria-label="search" onKeyUp={this.updateSearchTerm} onFocus={this.searchFocus} onBlur={this.searchFocus} />
       </div>
       <div className="d-in-bl sideHeading f12">
         <span>{this.props.sideMenuSelected}</span>
       </div>
     </div>
+    // {/* <div className="col-sm-6 blocker"></div> */}
+    // </div>
    );
   }
 }

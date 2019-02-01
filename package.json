@@ -34,6 +34,7 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "heroku": "^7.19.4",
+    "http2": "^3.3.7",
     "isomorphic-fetch": "^2.2.1",
     "mongodb": "^2.2.5",
     "mongoose": "^4.5.9",

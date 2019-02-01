@@ -37,6 +37,12 @@
 .f12 {
   font-size: 12px !important;
 }
+.pad5{
+  padding: 5px;
+}
+.sm-hdr {
+  margin-left: 14.5%;
+}
 @media screen and (max-width: 776px) {
   .col-md-12 {
     width: 100%;
@@ -70,9 +76,32 @@
   }
   .detailsCardSection {
     width: auto !important;
+    text-align: center;
   }
   .imgWrap {
     padding: 10px;
+  }
+  .md-bl{
+    display: block;
+  }
+  .sm-hdr {
+    position: fixed;
+    top: 0;
+    background-color: #efefef;
+    height: 75px;
+    margin-left: 10px !important;
+  }
+  .sm-content {
+    margin-top: 75px;
+  }
+  .sm-sidebar {
+    z-index: 2;
+    width: 50% !important;
+  }
+  .blocker {
+    z-index: 2;
+    width: 50% !important;
+    background-color: rgb(0,0,0,0.75);
   }
 }
 .loading {
@@ -84,4 +113,10 @@
 }
 .marginL15 {
   margin-left: 15px;
+}
+.thumb {
+  min-height: 100px;
+  max-height: 100px;
+  max-width: 130px;
+  min-width: 130px;
 }

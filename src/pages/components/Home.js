@@ -11,11 +11,24 @@ export default class Home extends Component {
     this.triggerSearch = this.triggerSearch.bind(this);
     this.sideBarUpdated = this.sideBarUpdated.bind(this);
     this.getNextDataSet = this.getNextDataSet.bind(this);
+    this.toggleSideBar = this.toggleSideBar.bind(this);
     this.state = {
       sideMenuSelected: ''
     }
   }
 
+  componentWillMount() {
+    const isMobile = window.innerWidth < 576 ? true: false;
+    this.setState({
+      isMobile: isMobile
+    });
+  }
+
+  toggleSideBar() {
+    this.setState({
+      isMobile: !this.state.isMobile
+    });
+  }
   sideBarUpdated(val) {
     this.setState({ sideMenuSelected: val})
   }
@@ -44,14 +57,14 @@ export default class Home extends Component {
   }
 
   render() {
-    const {children, sideMenuSelected} = this.state;
+    const {children, sideMenuSelected, isMobile} = this.state;
     return (
       <div>
         <div className="home">
-          <SideBar sideBarUpdated={this.sideBarUpdated}/>
+          <SideBar sideBarUpdated={this.sideBarUpdated} isVisible={isMobile}/>
           <section className="tr d-in-bl col-12">
-            <div className="contentSection d-in-bl tl col-10 col-md-10 col-sm-12">
-              <ContentHeader triggerSearch={this.triggerSearch} sideMenuSelected={sideMenuSelected}/>
+            <ContentHeader triggerSearch={this.triggerSearch} sideMenuSelected={sideMenuSelected} toggleSideBar={this.toggleSideBar}/>
+            <div className="contentSection d-in-bl tl col-10 col-md-10 col-sm-12 sm-content">
               <ContentCard cardData={children} getNextDataSet={this.getNextDataSet}/>
             </div>
           </section>

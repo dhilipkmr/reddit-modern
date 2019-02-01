@@ -88,13 +88,12 @@ export default class ContentCard extends Component {
         <div key={index} {...otherProps} onClick={this.showImage.bind(this, url)}>
           <div className="cardWrapper col-sm-12">
             <div className="imgWrap tc">
-              <img width="120px" height="80px" src={thumbnail}/>
+              <img className="thumb"  src={thumbnail} alt={'image_'+ index}/>
             </div>
             <div className="detailsCardSection">
               <div className="title"><span className="txtEllipsis">{title}</span></div>
               <div className="details">
-                <i className="fas fa-igloo"></i>
-                <span>{commentSvg}</span><span className="commentsCount">{num_comments}</span>
+                <span className="md-bl pad5"><span>{commentSvg}</span><span className="commentsCount">{num_comments}</span></span>
                 <span className="commentsCount marginL15">{' Published ' + time }</span><span> by </span><span className="author">{author}</span>
               </div>
             </div>

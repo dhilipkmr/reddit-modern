@@ -18,14 +18,13 @@ app.use(express.static('src/pages/static'));
 
 const loadHtml = (content) => {
     return (`
-        <html>
+        <!DOCTYPE html>
+        <html lang="en-IN">
             <head>
                  <title>Modern Reddit</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link rel="manifest" href="/manifest.json">
-                <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
                 <link rel="icon" href="https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-57x57.png">
-                <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
                 <style>
                     @keyframes rippleLoader {
                         100% {
@@ -54,9 +53,11 @@ const loadHtml = (content) => {
                         </div>';
                 </script>
                 <script src = "/swRegisterer.js"></script>
-                <script src="client_bundle.js"></script>
                 <link rel="stylesheet" type="text/css" href="/styles/common.css">
                 <link rel="stylesheet" type="text/css" href="/styles/home.css">
+                <script src="client_bundle.js"></script>
+                <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
             </body>
         </html>`);
 };
