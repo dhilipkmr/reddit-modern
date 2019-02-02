@@ -87,9 +87,6 @@
     width: auto !important;
     text-align: center;
   }
-  .imgWrap {
-    padding: 10px;
-  }
   .md-bl{
     display: block;
   }
@@ -130,12 +127,13 @@
   font-weight: bold:
   color: #777777;
 }
+
 .marginL15 {
   margin-left: 15px;
 }
 .thumb {
-  min-height: 100px;
-  max-height: 100px;
-  max-width: 130px;
-  min-width: 130px;
+  height: 100px;
+  width: 130px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 0 #888888;
 }

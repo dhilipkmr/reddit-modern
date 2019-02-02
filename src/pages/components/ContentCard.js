@@ -7,6 +7,19 @@ import {connect} from 'react-redux';
 import {findCount, publishedTime} from '../utils/utils';
 import {loadNextCardData as nextCardAction} from '../actions/contentCardActions';
 
+function isInViewport(item) {
+  const bounding = item.getBoundingClientRect();
+  if (
+    bounding.top >= 0 &&
+    bounding.left >= 0 &&
+    bounding.right <= (window.innerWidth || document.documentElement.clientWidth) &&
+    bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+  ) {
+    return true;
+  }
+  return false;
+}
+
 class ContentCard extends Component {
   constructor(props) {
     super(props);
@@ -14,29 +27,54 @@ class ContentCard extends Component {
     this.showImage = this.showImage.bind(this);
     this.removePopup = this.removePopup.bind(this);
     this.hasThumbnail = this.hasThumbnail.bind(this);
+    this.startThumbnailLazyLoading = this.startThumbnailLazyLoading.bind(this);
     this.state = {showImage: false};
     this.debounce = undefined;
   }
-  componentDidUpdate(prevProps) {
-    if (!prevProps.cardData && this.props.cardData || (prevProps.cardData && this.props.cardData && prevProps.cardData.length !== this.props.cardData.length)) {
-      this.setScrollCapture();
-    }
+  componentDidMount() {
+    const {cardData = []} = this.props;
+    this.elementLoadedIndeces = [];
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.loadNewCardData && !this.props.loadNewCardData) {
+      this.elementLoadedIndeces = [];
+      newProps.cardData.map((data, index) => {
+        const currentElt = this.refs['thumb_' + index];
+        if (currentElt) {
+          currentElt.removeAttribute('src');
+        }
+      });
+    }
+  }
+  componentDidUpdate(prevProps) {
+    this.setScrollCapture();
+    this.startThumbnailLazyLoading();
+  }
+
+  startThumbnailLazyLoading() {
+    this.props.cardData.map((data, index) => {
+      if (this.elementLoadedIndeces.indexOf(index) === -1) {
+        const currentElt = this.refs['thumb_' + index];
+        if (currentElt) {
+          if (isInViewport(currentElt)) {
+            this.elementLoadedIndeces.push(index);
+            currentElt.src = currentElt.dataset.src;
+          }
+        }
+      }
+    });
+  }
+  
   setScrollCapture() {
     window.onscroll = () => {
       clearTimeout(this.debounc);
       this.debounc = setTimeout(() => {
-        const bounding = this.refs.itemToScrollToView.getBoundingClientRect();
-        if (
-          bounding.top >= 0 &&
-          bounding.left >= 0 &&
-          bounding.right <= (window.innerWidth || document.documentElement.clientWidth) &&
-          bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)
-        ) {
+        if (isInViewport(this.refs.itemToScrollToView)) {
           this.props.dispatch(nextCardAction(true));
         }
-      }, 100);
+        this.startThumbnailLazyLoading();
+      }, 50);
     }
   }
 
@@ -47,6 +85,29 @@ class ContentCard extends Component {
   removePopup() {
     this.setState({ showImage: false, url:'' });
     document.body.classList.remove('no-scroll');
+  }
+
+  renderVotes(ups, num_comments) {
+    if (this.props.isMobile) {
+      return (
+        <div className="pwaVotes">
+           <span className="md-bl "><span>{commentSvg}</span><span className="commentsCount">{num_comments}</span></span>
+           <div className="voting tc f12">
+            <div>{UPVOTESVG}</div>
+            <div className="f12 ups">{findCount(ups)}</div>
+            <div>{DOWNVOTESVG}</div>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="voting tc f12">
+          <div>{UPVOTESVG}</div>
+          <div className="f12 ups">{findCount(ups)}</div>
+          <div>{DOWNVOTESVG}</div>
+        </div>
+      );
+    }
   }
   renderCardData() {
     const {cardData} = this.props;
@@ -62,21 +123,19 @@ class ContentCard extends Component {
       return (
         <div key={index} {...otherProps} onClick={this.showImage.bind(this, url)}>
           <div className="cardWrapper col-sm-12">
-            <div className="imgWrap tc">
-              <img className="thumb"  src={thumbnail} alt={'image_'+ index}/>
+            <div className="tc">
+              <div className="imgWrap ">
+                <img ref={"thumb_" + index} className="thumb" data-src={thumbnail} alt={""}/>
+              </div>
             </div>
             <div className="detailsCardSection">
               <div className="title"><span className="txtEllipsis">{title}</span></div>
               <div className="details">
-                <span className="md-bl "><span>{commentSvg}</span><span className="commentsCount">{num_comments}</span></span>
+                {!this.props.isMobile && <span className="md-bl "><span>{commentSvg}</span><span className="commentsCount">{num_comments}</span></span>}
                 <span className="commentsCount marginL15">{' Published ' + time }</span><span> by </span><span className="author">{author}</span>
               </div>
             </div>
-            <div className="voting tc f12">
-              <div>{UPVOTESVG}</div>
-              <div className="f12 ups">{findCount(ups)}</div>
-              <div>{DOWNVOTESVG}</div>
-            </div>
+            {this.renderVotes(ups, num_comments)}
           </div>
           {/* <div className="borderBtm"></div> */}
         </div>
@@ -125,10 +184,11 @@ class ContentCard extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {children: cardData = [], error= false} = state.contentHeaderReducer;
+  const {children: cardData = [], error= false, loadNewCardData= false} = state.contentHeaderReducer;
   return {
     cardData,
-    error
+    error,
+    loadNewCardData
   }
 }
 

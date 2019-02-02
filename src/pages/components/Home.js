@@ -46,7 +46,7 @@ class Home extends Component {
           <section className="tr d-in-bl col-12">
             <ContentHeader sideMenuSelected={sideMenuSelected} toggleSideBar={this.toggleSideBar}/>
             <div className="contentSection d-in-bl tl col-10 col-md-10 col-sm-12 sm-content">
-              <ContentCard error={error}/>
+              <ContentCard error={error} isMobile={isMobile}/>
             </div>
           </section>
         </div>

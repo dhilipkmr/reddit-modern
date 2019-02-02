@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {addRedditData, updateSearchTerms, updateRedditData} from '../actions/contentHeaderActions';
+import {addRedditData, updateSearchTerms, updateRedditData, loadNewCard} from '../actions/contentHeaderActions';
 import {loadNextCardData} from '../actions/contentCardActions';
 import {getSubRedditInfo} from '../apiCalls/ApiCalls';
 
@@ -12,6 +12,9 @@ class ContentHeader extends Component {
     this.triggerSearch = this.triggerSearch.bind(this);
   }
 
+  componentDidMount() {
+    setTimeout(this.refs.searchElt.children[0].focus(), 100);
+  }
   componentWillReceiveProps(newProps) {
     if (newProps.loadNextCardData && !this.props.loadNextCardData) {
       this.triggerSearch(false);
@@ -21,7 +24,10 @@ class ContentHeader extends Component {
   updateSearchTerm(e) {
     const key = e.which || e.keyCode;
     if (key === 13) {
-      this.triggerSearch(true);
+      if (!this.props.lastSearchTerm || (this.props.lastSearchTerm !== this.props.searchTerm)) {
+        this.triggerSearch(true);
+        this.props.dispatch(loadNewCard(true));
+      }
     } else {
       this.props.dispatch(updateSearchTerms(e.target.value));
     }
@@ -33,8 +39,10 @@ class ContentHeader extends Component {
     const ifAfter = newterm ? '' : after;
     getSubRedditInfo(searchTerm, ifAfter)
       .then((response) => {
+        this.props.dispatch(loadNewCard(false));
         if (response.data && newterm) {
           response.data.data.error = false;
+          response.data.data.lastSearchTerm = searchTerm;
           this.props.dispatch(addRedditData(response.data));
         } else if (response.data && !newterm) {
           response.data.data.error = false;
@@ -44,6 +52,7 @@ class ContentHeader extends Component {
         }
       })
       .catch((errMsg) => {
+        this.props.dispatch(loadNewCard(false));
         this.props.dispatch(addRedditData({ data:{ after:'', children: [], error: true} }));
         console.log(errMsg);
       });
@@ -76,10 +85,10 @@ class ContentHeader extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {children = [], after = '', searchTerm = ''} = state.contentHeaderReducer;
+  const {children = [], after = '', searchTerm = '', lastSearchTerm = ''} = state.contentHeaderReducer;
   const {loadNextCardData = false} = state.contentCardReducer;
   return {
-    children, after, searchTerm, loadNextCardData
+    children, after, searchTerm, loadNextCardData, lastSearchTerm
   }
 }
 export default connect(mapStateToProps)(ContentHeader);

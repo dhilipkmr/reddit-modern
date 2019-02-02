@@ -1,7 +1,7 @@
 const contentHeaderReducer = (state = {}, action) => {
   switch (action.type) {
     case 'UPDATE_SEARCH_TERM':
-      return {...state, ...action.data};
+    case 'LOAD_NEW_CARD':
     case 'ADD_REDDIT_DATA':
       return {...state, ...action.data};
     case 'UPDATE_REDDIT_DATA':

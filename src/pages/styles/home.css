@@ -93,7 +93,7 @@ body {
 .search {
   background-color: #fff;
   border-radius: 20px;
-  padding: 10px;
+  padding: 4px;
   box-shadow: 0 1px 1px 0 #888888;
   margin-left: 8.33%;
   margin-top: 17px;
@@ -107,8 +107,9 @@ body {
 }
 input {
   border: none;
-  padding: 2px 10px;
+  padding: 10px 10px;
   width: 100%;
+  border-radius: 10px;
 }
 input:focus {
   border: none;
@@ -157,7 +158,12 @@ input:focus {
   width: 50%;
 }
 .imgWrap{
-  margin: 0 20px 0 0;
+  height: 100px;
+  width: 130px;
+  border-radius: 5px;
+  background-color: #eaeaea;
+  margin: 10px auto;
+
 }
 .title {
   font-family: Roboto;
@@ -203,4 +209,10 @@ input:focus {
 .commentsCount {
   display: inline-block;
   margin-left: 5px;
+}
+
+.pwaVotes {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
