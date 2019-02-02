@@ -29,7 +29,7 @@ const loadHtml = (content) => {
                     @keyframes rippleLoader {
                         100% {
                            width: 325px;
-                           height: 325;
+                           height: 325px;
                             opacity: 0;
                           }
                     }

@@ -4,8 +4,10 @@ import {getSubRedditInfo} from '../apiCalls/ApiCalls';
 import SideBar from './SideBar';
 import ContentHeader from './ContentHeader';
 import ContentCard from './ContentCard';
+import {connect} from 'react-redux';
+import {addRedditData} from '../actions/HomeActions';
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.triggerSearch = this.triggerSearch.bind(this);
@@ -22,6 +24,12 @@ export default class Home extends Component {
     this.setState({
       isMobile: isMobile
     });
+    window.onresize = (e) => {
+      const isMobile = window.innerWidth < 576 ? true: false;
+      this.setState({
+        isMobile: isMobile
+      });
+    };
   }
 
   toggleSideBar() {
@@ -41,34 +49,48 @@ export default class Home extends Component {
     getSubRedditInfo(searchTerm, after)
       .then((response) => {
         if (response.data && !after) {
-          this.setState({ searchTerm:searchTerm, ...response.data.data, error: false}, () => {
-            console.log(this.state);
-          });
+          response.data.error = false;
+          this.props.addRedditData(response.data);
         } else if (response.data && after) {
-          const {after, children} = response.data.data;
+          response.data.error = false;
+          this.props.updateRedditData(response.data);
           this.setState({ after, children: [...this.state.children, ...children], error: false})
         } else {
-          this.setState({ error: true });
+          this.setState({ after:'', children: [], error: true });
         }
       })
       .catch((errMsg) => {
-        this.setState({ error: true });
+        this.setState({ after:'', children: [], error: true });
+        console.log(errMsg);
       });
   }
 
   render() {
-    const {children, sideMenuSelected, isMobile} = this.state;
+    const {sideMenuSelected, isMobile, error} = this.state;
     return (
       <div>
         <div className="home">
-          <SideBar sideBarUpdated={this.sideBarUpdated} isVisible={isMobile}/>
+          <SideBar sideBarUpdated={this.sideBarUpdated} isVisible={isMobile} toggleSideBar={this.toggleSideBar}/>
           <section className="tr d-in-bl col-12">
             <ContentHeader triggerSearch={this.triggerSearch} sideMenuSelected={sideMenuSelected} toggleSideBar={this.toggleSideBar}/>
             <div className="contentSection d-in-bl tl col-10 col-md-10 col-sm-12 sm-content">
-              <ContentCard cardData={children} getNextDataSet={this.getNextDataSet}/>
+              <ContentCard getNextDataSet={this.getNextDataSet} error={error}/>
             </div>
           </section>
         </div>
       </div>)
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  addRedditData: (data) => {
+    dispatch(addRedditData(data));
+  }
+});
+
+const mapStateToProps = (state) => {
+  return {
+    children: state.homeReducer ? state.homeReducer.children: []
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

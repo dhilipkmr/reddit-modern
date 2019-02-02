@@ -27,7 +27,11 @@ export default class ContentHeader extends Component {
   }
 
   searchFocus() {
+    this.refs.searchElt.classList.toggle('col-3');
+    this.refs.searchElt.classList.toggle('col-4');
     this.refs.searchElt.classList.toggle('searchFocus');
+    this.refs.searchElt.classList.toggle('col-sm-5');
+    this.refs.searchElt.classList.toggle('col-sm-6');
   }
 
   render() {
@@ -38,7 +42,7 @@ export default class ContentHeader extends Component {
       <div className="d-in-bl">
         <img className="left-menu" src="/img/menu.svg" onClick={this.props.toggleSideBar}/>
       </div>
-      <div ref="searchElt" className="search d-in-bl">
+      <div ref="searchElt" className="search d-in-bl col-3 col-sm-5">
         <input name="search" placeholder="search" type="text" aria-label="search" onKeyUp={this.updateSearchTerm} onFocus={this.searchFocus} onBlur={this.searchFocus} />
       </div>
       <div className="d-in-bl sideHeading f12">

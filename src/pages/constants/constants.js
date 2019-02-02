@@ -5,3 +5,5 @@ export const SIDEBAR_MENU_ITEMS = [
   { name: 'Others', heading: true },
   { name: 'Coins' }, { name: 'Premium' }, { name: 'Help' }, { name: 'Settings' }
 ]
+export const RETRY = 'Unable To Load Data, Please Search for another Term';
+export const SEARCH = 'Please Search to Load Sub Reddits';

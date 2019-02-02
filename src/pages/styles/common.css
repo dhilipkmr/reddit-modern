@@ -43,12 +43,18 @@
 .sm-hdr {
   margin-left: 14.5%;
 }
+.no-scroll {
+  overflow: hidden;
+}
 @media screen and (max-width: 776px) {
   .col-md-12 {
     width: 100%;
   }
   .col-md-6 {
     width: 50%;
+  }
+  .col-md-5 {
+    width: 41.66%
   }
   .col-md-3 {
     width: 25%;
@@ -64,6 +70,9 @@
   }
   .col-sm-6 {
     width: 50%;
+  }
+  .col-sm-5 {
+    width: 41.66%
   }
   .col-sm-3 {
     width: 25%;
@@ -97,11 +106,21 @@
   .sm-sidebar {
     z-index: 2;
     width: 50% !important;
+    transition: all 500ms linear;
   }
   .blocker {
     z-index: 2;
     width: 50% !important;
     background-color: rgb(0,0,0,0.75);
+  }
+  .overlay {
+    background-color: rgb(0,0,0,0.5);
+    position: fixed;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    transition: all 500ms linear;
   }
 }
 .loading {
