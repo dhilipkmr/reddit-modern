@@ -1,7 +1,8 @@
-const homeReducer = (state = {}, action) => {
+const contentHeaderReducer = (state = {}, action) => {
   switch (action.type) {
+    case 'UPDATE_SEARCH_TERM':
+      return {...state, ...action.data};
     case 'ADD_REDDIT_DATA':
-    console.log('action.data', action.data);
       return {...state, ...action.data};
     case 'UPDATE_REDDIT_DATA':
       const {after, children: actionChildren} = action.data;
@@ -12,5 +13,5 @@ const homeReducer = (state = {}, action) => {
   }
 };
 
-export default homeReducer;
+export default contentHeaderReducer;
 

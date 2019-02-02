@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import headerSearch from './headerSearch'; 
-import homeReducer from './HomeReducer';
+import contentHeaderReducer from './contentHeaderReducer';
+import contentCardReducer from './contentCardReducer';
 
 export default combineReducers({
-  headerSearch,
-  homeReducer
+  contentHeaderReducer,
+  contentCardReducer
 });

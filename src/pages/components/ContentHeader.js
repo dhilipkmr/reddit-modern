@@ -1,30 +1,54 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {addRedditData, updateSearchTerms, updateRedditData} from '../actions/contentHeaderActions';
+import {loadNextCardData} from '../actions/contentCardActions';
+import {getSubRedditInfo} from '../apiCalls/ApiCalls';
 
-export default class ContentHeader extends Component {
+class ContentHeader extends Component {
   constructor(props) {
     super(props);
     this.updateSearchTerm = this.updateSearchTerm.bind(this);
     this.searchFocus = this.searchFocus.bind(this);
-    this.state = {
-      searchTerm: 'cats'
-    }
+    this.triggerSearch = this.triggerSearch.bind(this);
   }
 
-  componentDidMount(){ 
-    this.refs.searchElt.children[0].innerText= 'cats';
-    this.props.triggerSearch('cats');
+  componentWillReceiveProps(newProps) {
+    if (newProps.loadNextCardData && !this.props.loadNextCardData) {
+      this.triggerSearch(false);
+      this.props.dispatch(loadNextCardData(false));
+    }
   }
   updateSearchTerm(e) {
     const key = e.which || e.keyCode;
     if (key === 13) {
-      const {searchTerm} = this.state;
-      this.props.triggerSearch(searchTerm);
+      this.triggerSearch(true);
     } else {
-      this.setState({
-        searchTerm: e.target.value
-      });
+      this.props.dispatch(updateSearchTerms(e.target.value));
     }
   }
+
+
+  triggerSearch(newterm) {
+    const {searchTerm, after, loadNextCardData} = this.props;
+    const ifAfter = newterm ? '' : after;
+    getSubRedditInfo(searchTerm, ifAfter)
+      .then((response) => {
+        if (response.data && newterm) {
+          response.data.data.error = false;
+          this.props.dispatch(addRedditData(response.data));
+        } else if (response.data && !newterm) {
+          response.data.data.error = false;
+          this.props.dispatch(updateRedditData(response.data));
+        } else {
+          this.props.dispatch(addRedditData({ data:{ after:'', children: [], error: true} }));
+        }
+      })
+      .catch((errMsg) => {
+        this.props.dispatch(addRedditData({ data:{ after:'', children: [], error: true} }));
+        console.log(errMsg);
+      });
+  }
+
 
   searchFocus() {
     this.refs.searchElt.classList.toggle('col-3');
@@ -35,9 +59,7 @@ export default class ContentHeader extends Component {
   }
 
   render() {
-    const {searchTerm = ''} = this.state;
    return (
-    //  <div>
     <div className="tl col-10 col-md-10 col-sm-12 sm-hdr">
       <div className="d-in-bl">
         <img className="left-menu" src="/img/menu.svg" onClick={this.props.toggleSideBar}/>
@@ -49,8 +71,15 @@ export default class ContentHeader extends Component {
         <span>{this.props.sideMenuSelected}</span>
       </div>
     </div>
-    // {/* <div className="col-sm-6 blocker"></div> */}
-    // </div>
    );
   }
 }
+
+const mapStateToProps = (state) => {
+  const {children = [], after = '', searchTerm = ''} = state.contentHeaderReducer;
+  const {loadNextCardData = false} = state.contentCardReducer;
+  return {
+    children, after, searchTerm, loadNextCardData
+  }
+}
+export default connect(mapStateToProps)(ContentHeader);
