@@ -1,18 +1,18 @@
 {
-  "name": "Expense Manager",
-  "short_name": "Expense Manager",
-  "start_url": "/login",
-  "scope": ".",
+  "name": "Modern Reddit",
+  "short_name": "Reddit New",
+  "start_url": "/",
+  "scope": "../../../",
   "display": "standalone",
-  "background_color": "#4688F1",
-  "theme_color": "#4688F1",
-  "description" : "Manage all your Expenses at one place",
+  "background_color": "rgb(255, 69, 0)",
+  "theme_color": "rgb(255, 69, 0)",
+  "description" : "A New look for reddit",
   "dir": "ltr",
   "lang": "en-US",
   "orientation": "portrait-primary",
   "icons":[{
-    "src": "/img/money192.png",
-    "type": "img/png",
+    "src": "/img/reddit192x192.jpg",
+    "type": "img/jpg",
     "sizes": "192x192"
   }]
 }
