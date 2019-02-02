@@ -1,5 +1,3 @@
-# Expense Manager
- A Full Stack Web Application Development, to manage expenses through Mongodb, Express, ReactJS and Node.
+# Modern Reddit
+ A new Design for Reddit
 
-# References:
- -[Setting Private Environment Variables](https://www.freecodecamp.org/forum/t/guide-for-using-mongodb-and-deploying-to-heroku/19347)
